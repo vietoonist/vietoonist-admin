@@ -1,7 +1,65 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Vietoonist - Home{% endblock %}
 
 {% block body %}
+<div class="homepage">
+    <h1>Welcome to Vietoonist!</h1>
+    <p>Your platform for Vietnamese comics, stories, and poems.</p>
 
-  <h1>{{ name }}</h1>
+    <section class="featured-comics">
+        <h2>Featured Comics</h2>
+        <div class="comics-grid">
+            {% for comic in featured_comics %}
+                <div class="comic-item">
+                    <a href="">
+                        <img src="{{ comic.cover_image_url }}" alt="{{ comic.title }}">
+                        <h3>{{ comic.title }}</h3>
+                    </a>
+                    <p>{{ comic.description | slice(0, 100) }}...</p>
+                </div>
+            {% else %}
+                <p>No comics available at the moment.</p>
+            {% endfor %}
+        </div>
+    </section>
 
+    <section class="featured-stories">
+        <h2>Featured Stories & Poems</h2>
+        <div class="stories-grid">
+            {% for story in featured_stories %}
+                <div class="story-item">
+                    <a href="">
+                        <h3>{{ story.title }}</h3>
+                    </a>
+                    <p>{{ story.content | slice(0, 100) }}...</p>
+                </div>
+            {% else %}
+                <p>No stories available at the moment.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<style>
+    .homepage {
+        text-align: center;
+        padding: 20px;
+    }
+    .comics-grid, .stories-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .comic-item, .story-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        width: 200px;
+    }
+    .comic-item img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 {% endblock %}
